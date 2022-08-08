@@ -13,27 +13,47 @@ var main = function(){
         
         //create a click handler for this element
         $(element).on("click", function(){
+
+            var $content,
+            $input,
+            $button,
+            i;
+
             var $element = $(element);
             $(".tabs a span").removeClass("active");
             $element.addClass("active");
             $("main .content").empty();
 
             if ($element.parent().is(":nth-child(1)")){
-                console.log("FIRST TAB CLICKED!");
+                
                 $content = $("<ul>");
                 for (i = toDos.length-1; i >= 0; i--) {
                     $content.append($("<li>").text(toDos[i]));
                 }
             }
             else if ($element.parent().is(":nth-child(2)")){
-                console.log("SECOND TAB CLICKED!");
+                
                 $content = $("<ul>");
                 toDos.forEach(function (todo){
                     $content.append($("<li>").text(todo));
                 });
             }
             else if ($element.parent().is(":nth-child(3)")){
-                console.log("THIRD TAB CLICKED!");
+                
+                $content = $("<div>");
+                $input = $("<input>");
+                $button = $("<button>").text("+");
+                
+                $button.on("click", function(){
+                    if ($input.val() !== ""){
+                    toDos.push($input.val())
+                    $input.val("");
+                    }   
+                });
+
+                
+                $content.append($input, $button);
+              
             }
             
             $("main .content").append($content);
