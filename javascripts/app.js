@@ -1,14 +1,9 @@
-var main = function(){
-    
-    var toDos = [
-        "Finish reading this book",
-        "Take myself for a walk",
-        "Answer emails",
-        "Prep for Monday's class",
-        "Make up some new ToDos",
-        "Get groceries"
-    ];
-    
+var main = function(toDoObjects){
+"use strict";    
+    var toDos = toDoObjects.map(function(toDo){
+        return toDo.description;
+    });
+
     $(".tabs a span").toArray().forEach(function(element){
         
         //create a click handler for this element
@@ -65,4 +60,8 @@ var main = function(){
     $(".tabs a:first-child span").trigger("click");
 };
 
-$(document).ready(main);
+$(document).ready(function(){
+    $.getJSON("todos.json", function(toDoObjects){
+        main(toDoObjects);
+    });
+});
